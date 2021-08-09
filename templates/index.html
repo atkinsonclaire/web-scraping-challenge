@@ -2,29 +2,34 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>index.html</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mars Information</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
-  <style type="text/css">
-    html, body, #container {
-      height: 100%;
-    }
-    body, #container {
-      overflow: hidden;
-      margin: 0;
-    }
-    #iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
-  <div id="container">
-    <iframe id="iframe" sandbox="allow-scripts" src="/files/Desktop/master-data/unc-peace-virt-data-pt-02-2021-u-c/02-Homework/12-Web-Scraping-and-Document-Databases/index.html"></iframe>
+  <div class="container">
+
+    <div class="jumbotron text-center">
+      <h1>Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+    </div>
+
+    <!-- Mars Data -->
+    <div class="row" id="mars-data">
+      <div class="col-md-12">
+        <h4 class="heading">{{.price}} {{listings.headline}}</h4>
+        <small>{{mars.latest_title}} {{mars.latest_summary}}</small>
+        <small>{{mars.featured_image_url}}</small>
+        <small>{{mars.html_table}}</small>
+        <small>{{mars.hemisphere_image_urls}}</small>
+      </div>
+    </div>
+
   </div>
 </body>
+
 
 </html>
