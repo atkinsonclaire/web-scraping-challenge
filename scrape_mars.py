@@ -14,11 +14,13 @@ def scrape():
 #Scrape Mars News Site
 
     url = 'https://redplanetscience.com'
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    title = soup.find_all('div', class_='content_title')
-    summary = soup.find_all('div', class_='article_teaser_body')
-    return title, summary
+    browser.visit(url)
+    html = browser.html
+    soup = BeautifulSoup(html, 'html.parser')
+    title=soup.find_all('div', class_='content_title')
+    latest_title=title[0].text
+    summary=soup.find_all('div', class_='article_teaser_body')
+    latest_summary=summary[0].text
     
 #Scrape Mars Featured Image Page
 
@@ -27,8 +29,6 @@ def scrape():
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
     featured_image_url = soup.find_all('img', class_='headerimage fade-in')
-    browser.quit()
-    return featured_image_url
 
 #Scrape Mars Facts Table
 
@@ -36,8 +36,6 @@ def scrape():
     tables = pd.read_html(url)
     df=tables[1]
     html_table = df.to_html()
-    browser.quit()
-    return html_table
 
 #Scrape Mars Hemispheres
 
@@ -64,9 +62,19 @@ def scrape():
         hemisphere['title'] = browser.find_by_css('h2.title').text
         
         hemisphere_image_urls.append(hemisphere)
-        
-        browser.quit()
 
-    return hemisphere_image_urls
+#Create dictionary       
+    mars_data = {
+        "latest_title": latest_title,
+        "latest_summary": latest_summary,
+        "featured_image_url": featured_image_url,
+        "html_table": html_table,
+        "hemisphere_image_urls": hemisphere_image_urls
+    }
+
+    browser.quit()
+
+# Return results
+    return mars_data
 
 
